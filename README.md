@@ -80,3 +80,7 @@ haproxy.cfg
 
 
 Cкриншот, где видно перенаправление запросов на разные серверы при обращении к HAProxy:
+
+
+<img width="728" height="230" alt="image" src="https://github.com/user-attachments/assets/cac172fb-76ee-476e-81c6-e706a32875e5" />
+
