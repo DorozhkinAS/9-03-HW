@@ -72,7 +72,7 @@ haproxy.cfg
 
     listen web_tcp
         mode tcp
-        bind *:8888
+        bind *:1352
         balance roundrobin
         option tcplog
         server s1 127.0.0.1:7777 check inter 3s
