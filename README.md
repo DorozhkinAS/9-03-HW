@@ -77,3 +77,6 @@ listen web_tcp
         option tcplog
         server s1 127.0.0.1:8888 check inter 3s
         server s2 127.0.0.1:9999 check inter 3s
+
+
+Cкриншот, где видно перенаправление запросов на разные серверы при обращении к HAProxy:
