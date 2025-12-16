@@ -1,6 +1,6 @@
 Домашнее задание к занятию 2 «Кластеризация и балансировка нагрузки» - Дорожкин Артем
 
-                                                Задание 1
+Задание 1
 
 Запустите два simple python сервера на своей виртуальной машине на разных портах
 Установите и настройте HAProxy, воспользуйтесь материалами к лекции по ссылке
@@ -9,7 +9,7 @@
 Решение 1
 haproxy.cfg
 
-global
+    global
         log /dev/log    local0                                                                       
         log /dev/log    local1 notice
         chroot /var/lib/haproxy                                                                      
@@ -18,7 +18,7 @@ global
         user haproxy
         group haproxy                                                                                
         daemon
-                                                                                                     
+        
        # Default SSL material locations
         ca-base /etc/ssl/certs                                                                       
         crt-base /etc/ssl/private
@@ -29,7 +29,7 @@ global
         ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POL>
         ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets                                  
 
-defaults                                                                                             
+    defaults                                                                                             
         log     global
         mode    http                                                                                 
         #option httplog
@@ -45,16 +45,16 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-listen stats  #
+    listen stats  #
         bind *:888
         mode http
         option httplog
-         stats enable                                                                                 
+        stats enable                                                                                 
         stats uri /stats
         stats refresh 5s                                                                              
         stats realm Haproxy\ Statistics
         
-frontend example                                                                        
+    frontend example                                                                        
         mode http
         bind :8088                                                                                    
         option httplog
@@ -62,21 +62,21 @@ frontend example
         #acl ACL_example.com hdr(host) -i example.com
         #use_backend web_servers if ACL_example.com                                                   
 
-backend web_servers    
+    backend web_servers    
         mode http
         balance roundrobin
         option httpchk
         http-check send meth GET uri /index.html
-        server s1 127.0.0.1:8888 check
-        server s2 127.0.0.1:9999 check
+        server s1 127.0.0.1:7777 check
+        server s2 127.0.0.1:7788 check
 
-listen web_tcp
+    listen web_tcp
         mode tcp
-        bind *:1325
+        bind *:8888
         balance roundrobin
         option tcplog
-        server s1 127.0.0.1:8888 check inter 3s
-        server s2 127.0.0.1:9999 check inter 3s
+        server s1 127.0.0.1:7777 check inter 3s
+        server s2 127.0.0.1:7788 check inter 3s
 
 
 Cкриншот, где видно перенаправление запросов на разные серверы при обращении к HAProxy:
