@@ -99,75 +99,75 @@ HAproxy должен балансировать только тот http-тра�
 Решение 2
 
 
-global
-    log /dev/log    local0
-    log /dev/log    local1 notice
-    chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin
-    stats timeout 30s
-    user haproxy
-    group haproxy
-    daemon
+    global
+        log /dev/log    local0
+        log /dev/log    local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
 
-   # Default SSL material locations
-    ca-base /etc/ssl/certs
-    crt-base /etc/ssl/private
+       # Default SSL material locations
+        ca-base /etc/ssl/certs
+        crt-base /etc/ssl/private
+    
+        # See: https://ssl-config.mozilla.org/
+        #server=haproxy&server-version=2.0.3&config=intermedia>
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECD>
+        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POL>
+        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
 
-    # See: https://ssl-config.mozilla.org/
-    #server=haproxy&server-version=2.0.3&config=intermedia>
-    ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECD>
-    ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POL>
-    ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
-
-defaults
-    log     global
-    mode    http
-    #option httplog
-    option  dontlognull
-    timeout connect 5s
-    timeout client  50s
-    timeout server  50s
-    errorfile 400 /etc/haproxy/errors/400.http
-    errorfile 403 /etc/haproxy/errors/403.http
-    errorfile 408 /etc/haproxy/errors/408.http
-    errorfile 500 /etc/haproxy/errors/500.http
-    errorfile 502 /etc/haproxy/errors/502.http
-    errorfile 503 /etc/haproxy/errors/503.http
-    errorfile 504 /etc/haproxy/errors/504.http
-
-listen stats  #
-    bind *:888
-    mode http
-    option httplog
-    stats enable
-    stats uri /stats
-    stats refresh 5s
-    stats realm Haproxy\ Statistics
-
-frontend example
-    mode http
-    bind :8088
-    option httplog
-    default_backend web_servers
-    acl host_example hdr(host) -i example.local
-    use_backend backend_servers if host_example
-
-backend web_servers
-    mode http
-    balance roundrobin
-    option httpchk
-    http-check send meth GET uri /index.html
-    server s1 127.0.0.1:7777 check
-    server s2 127.0.0.1:7788 check
-
-listen web_tcp
-    mode tcp
-    bind *:1352
-    balance roundrobin
-    option tcplog
-    server s1 127.0.0.1:7777 weight 2 check
-    server s2 127.0.0.1:7788 weight 3 check
-    server s3 127.0.0.1:7799 weight 4 check
+    defaults
+        log     global
+        mode    http
+        #option httplog
+        option  dontlognull
+        timeout connect 5s
+        timeout client  50s
+        timeout server  50s
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+    
+    listen stats  #
+        bind *:888
+        mode http
+        option httplog
+        stats enable
+        stats uri /stats
+        stats refresh 5s
+        stats realm Haproxy\ Statistics
+    
+    frontend example
+        mode http
+        bind :8088
+        option httplog
+        default_backend web_servers
+        acl host_example hdr(host) -i example.local
+        use_backend backend_servers if host_example
+    
+    backend web_servers
+        mode http
+        balance roundrobin
+        option httpchk
+        http-check send meth GET uri /index.html
+        server s1 127.0.0.1:7777 check
+        server s2 127.0.0.1:7788 check
+    
+    listen web_tcp
+        mode tcp
+        bind *:1352
+        balance roundrobin
+        option tcplog
+        server s1 127.0.0.1:7777 weight 2 check
+        server s2 127.0.0.1:7788 weight 3 check
+        server s3 127.0.0.1:7799 weight 4 check
 
 
 
