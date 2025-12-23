@@ -8,7 +8,7 @@
 На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
 Решение 1
 
-[hpr.cfg](https://github.com/DorozhkinAS/9-03-HW/blob/main/hpr.cfg)
+[hpr_1.cfg](https://github.com/DorozhkinAS/9-03-HW/blob/main/hpr_1.cfg)
 
     global
         log /dev/log    local0                                                                       
