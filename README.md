@@ -172,7 +172,14 @@ HAproxy должен балансировать только тот http-тра�
         server s3 127.0.0.1:7799 weight 4 check
 
 
-<img width="1260" height="233" alt="image" src="https://github.com/user-attachments/assets/3adf14a2-a111-4f52-810d-5a62cec7f68b" />
+
+Cкриншот запроса без домена
+
+<img width="746" height="175" alt="image" src="https://github.com/user-attachments/assets/709ebad7-d7e7-455a-ab07-6836bbd503db" />
+
+
+
+
 
 
 <img width="658" height="371" alt="image" src="https://github.com/user-attachments/assets/51c3a5d5-0e9e-4bfd-9873-08f57f47a501" />
