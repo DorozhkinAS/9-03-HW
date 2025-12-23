@@ -99,6 +99,7 @@ HAproxy должен балансировать только тот http-тра�
 
 Решение 2
 
+[hpr_2.cfg](https://github.com/DorozhkinAS/9-03-HW/blob/main/hpr_2.cfg)
 
     global
         log /dev/log    local0
