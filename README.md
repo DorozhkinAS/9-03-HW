@@ -185,13 +185,12 @@ Cкриншот запроса без домена
 <img width="658" height="371" alt="image" src="https://github.com/user-attachments/assets/51c3a5d5-0e9e-4bfd-9873-08f57f47a501" />
 
 
+
+
 <img width="966" height="258" alt="image" src="https://github.com/user-attachments/assets/55272cfb-d15a-4c42-a74d-ed02e489a810" />
 
 
-<img width="666" height="118" alt="image" src="https://github.com/user-attachments/assets/9ffd3f88-6955-4843-814e-3b101c9f2cb1" />
 
-
-<img width="1220" height="125" alt="image" src="https://github.com/user-attachments/assets/b4c5b6d6-0c27-4c78-bdda-12c5603d851b" />
 
 
 
