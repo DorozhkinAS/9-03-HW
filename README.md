@@ -148,28 +148,27 @@ HAproxy должен балансировать только тот http-тра�
     
     frontend example
         mode http
-        bind :8088
+        bind *:1352
         option httplog
-        default_backend web_servers
+        # Балансируем только для домена example.local
         acl host_example hdr(host) -i example.local
-        use_backend backend_servers if host_example
-    
+        use_backend web_servers if host_example
+
+        # Для всех остальных доменов - 404 или редирект
+        default_backend invalid_backend
+
     backend web_servers
         mode http
         balance roundrobin
-        option httpchk
-        http-check send meth GET uri /index.html
-        server s1 127.0.0.1:7777 check
-        server s2 127.0.0.1:7788 check
-    
-    listen web_tcp
-        mode tcp
-        bind *:1352
-        balance roundrobin
-        option tcplog
-        server s1 127.0.0.1:7777 weight 2 check
-        server s2 127.0.0.1:7788 weight 3 check
-        server s3 127.0.0.1:7799 weight 4 check
+        # Weighted Round Robin с указанными весами
+        server server1 127.0.0.1:7777 weight 2 check
+        server server2 127.0.0.1:7788 weight 3 check
+        server server3 127.0.0.1:7799 weight 4 check
+
+    backend invalid_backend
+        mode http
+        errorfile 503 /etc/haproxy/errors/503.http
+
 
 
 
