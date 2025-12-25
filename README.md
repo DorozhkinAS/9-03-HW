@@ -172,12 +172,7 @@ HAproxy должен балансировать только тот http-тра�
 
 
 
-Cкриншот запроса без домена
-
-<img width="746" height="175" alt="image" src="https://github.com/user-attachments/assets/709ebad7-d7e7-455a-ab07-6836bbd503db" />
-
-
-
+<img width="782" height="426" alt="image" src="https://github.com/user-attachments/assets/e6d0add3-3cfb-46c1-848d-bf097e753f50" />
 
 
 
